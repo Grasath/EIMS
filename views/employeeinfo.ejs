@@ -1,0 +1,137 @@
+<%- include('partials/header'); %>
+
+<div class="top-content">
+    <div class="filters">
+        <h5>FILTERS</h5>
+        <form class="d-flex" action="/employeeTableFilter" method="post" target="employeeTable">
+            <input class="form-control me-2" name="emp_no" type="search" placeholder="employee no" aria-label="Search">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+        <hr>
+        <form class="f-form-2" action="/employeeTableFilter" method="post" target="employeeTable">   
+            <div class="button">
+                <button class="btn btn-dark" type="submit">Apply</button>
+            </div>         
+            <div class="dept">
+                <label  class="fw-bold"  for=""><a class="nav-link" data-bs-toggle="collapse" href="#dept_collapse" >Department ▼</a></label>
+                <div class="collapse" id="dept_collapse">
+                    <input type="checkbox" name="department[]" id="dept-all" value="all" checked>
+                    <label for="">All</label><br>
+                    <% const  deptName = ['Customer Service','Development','Finance','Human Resources','Marketing','Production','Quality Management','Quality Management','Sales'] %>
+                    <% deptName.forEach(dept=>{  %>
+                        <input type="checkbox" name="department[]" id="" value="<%= dept %>" checked>
+                        <label for=""><%= dept %></label><br>
+                    <%  }) %>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="role">
+                <label class="fw-bold" for=""><a class="nav-link" data-bs-toggle="collapse" href="#role_collapse">Role ▼</a></label><br>
+                <div class="collapse" id="role_collapse">
+                    <input type="checkbox" name="title[]" id="title-all" value="all" checked>
+                    <label for="">All</label><br>
+                    <% const  titleName = ['Staff','Senior Staff','Engineer','Senior Engineer','Assistant Engineer','Technique Leader','Manager'] %>
+                    <% titleName.forEach(title=>{  %>
+                        <input type="checkbox" name="title[]" id="" value="<%= title %>" checked>
+                        <label for=""><%= title %></label><br>
+                    <%  }) %>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="gender">
+                <label class="fw-bold" for="">Gender</label><br>
+                <input type="checkbox" name="gender[]" id="" value="m" checked>
+                <label for="">Male</label><br>
+                <input type="checkbox" name="gender[]" id="" value="f" checked>
+                <label for="">Female</label>
+            </div>
+            <hr>
+            <div class="salary">
+                <label class="fw-bold" for="">Salary</label><br>
+                <label for="">min : </label>
+                <input class="form-control w-50 fs-small" type="number" name="min_value" id="" placeholder="min" value="<%= min_value %>">
+                <label for="">max : </label>
+                <input class="form-control w-50 fs-small" type="number" name="max_value" id="" placeholder="max" value="<%= max_value %>">
+
+            </div>
+                        
+            
+        </form>
+
+
+    </div>
+    <div class="edit-record">
+        <a class="btn btn-warning" href="#update-by-emp-no" data-bs-toggle="collapse">UPDATE RECORD</a>
+        <form class="collapse" id="update-by-emp-no" action="/updateemployee" method="post">
+            <div class="d-flex m-auto">
+                <input class="form-control  me-0 w-75" name="emp_no" type="search" placeholder="employee no" aria-label="Search" required>
+                <button class="btn btn-outline-dark w-25 ms-1" type="submit">Go</button>
+            </div>
+            
+        </form>
+        <a href="/newEmployee" class="btn btn-warning">NEW RECORD</a>
+        <a href="/employeeinfo" class="btn btn-dark">REFRESH ↻</a>
+        
+    </div>
+    <div class="delete-record">
+        <table>
+            <thead>
+                <th>DELETE RECORD</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a class="btn btn-outline-dark" href="#delete_single_record_collapse" data-bs-toggle="collapse">Single Record</a>
+                        <form class="collapse" id="delete_single_record_collapse" action="/delete" method="post">
+                            <div class="d-flex m-auto flex-row">
+                                <input class="form-control me-0 w-50" name="emp_no" type="search" placeholder="employee no" aria-label="Search" required>
+                                <button class="btn btn-outline-dark w-25 ms-1" type="submit">Go</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr><td><a href="/deleteEmployee" class="btn btn-dark">Multi Records</a></td></tr>
+            </tbody>         
+
+        </table>
+
+    </div>
+    <div class="recycle-bin"> 
+       <table>
+        <thead>
+            <th colspan="2">RECYCLE BIN</th>
+        </thead>
+        <tbody>
+            <tr><td colspan="2"><a class="btn btn-dark w-75" href="/recycleBinView" target="employeeTable">View</a></td></tr>
+            <tr><td><a class="btn btn-outline-dark" href="#retrive-collapse" data-bs-toggle="collapse">Retrive</a></td><td><a class="btn btn-dark" href="/retriveAll">Retrive All</a></td></tr>
+            <tr>
+                <td colspan="2">
+                <form class="collapse" id="retrive-collapse" action="/retrive" method="post">
+                    <div class="d-flex m-auto flex-row">
+                        <input class="form-control me-0 w-50" name="emp_no" type="search" placeholder="employee no" aria-label="Search" required>
+                        <button class="btn btn-outline-dark w-25 ms-1" type="submit">Go</button>
+                    </div>
+                </form>
+                </td>
+            </tr>
+            <tr><td><a class="btn btn-outline-dark" href="#delete-collapse" data-bs-toggle="collapse">Delete</a></td><td><a class="btn btn-dark" href="/recycleBinDeleteAll">Delete All</a></td></tr>
+            <tr>
+                <td colspan="2">
+                <form class="collapse" id="delete-collapse" action="/recycleBinDelete" method="post">
+                    <div class="d-flex m-auto flex-row">
+                        <input class="form-control me-0 w-50" name="emp_no" type="search" placeholder="employee no" aria-label="Search" required>
+                        <button class="btn btn-outline-dark w-25 ms-1" type="submit">Go</button>
+                    </div>
+                </form>
+                </td>
+            </tr>
+        </tbody>
+       </table>
+
+    </div>
+</div>
+<iframe name="employeeTable" src="./employeeTable" frameborder="0" width="1380.360" height="260"></iframe>
+    
+<%- include('partials/footer'); %>

@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+<div class="bg-danger delete-records">
+    <h4 class="m-2 p-2 text-center bg-danger text-light">Delete Records</h4>
+    <form class="container text-left bg-light p-2"  action="/deleteall" method="post">
+        <div class="row">
+            <div class="col">
+                <p class="fw-bold bg-dark text-light p-2">Department</p>
+                <input type="checkbox" name="department[]" id="dept-all" value="all" >
+                    <label for="">All</label><br>
+                    <% const  deptName = ['Customer Service','Development','Finance','Human Resources','Marketing','Production','Quality Management','Quality Management','Sales'] %>
+                    <% deptName.forEach(dept=>{  %>
+                        <input type="checkbox" name="department[]" id="" value="<%= dept %>" >
+                        <label for=""><%= dept %></label><br>
+                    <%  }) %>
+            </div>
+            <div class="col">
+                <p class="fw-bold bg-dark text-light p-2">Role</p>
+                <input type="checkbox" name="title[]" id="title-all" value="all">
+                    <label for="">All</label><br>
+                    <% const  titleName = ['Staff','Senior Staff','Engineer','Senior Engineer','Assistant Engineer','Technique Leader','Manager'] %>
+                    <% titleName.forEach(title=>{  %>
+                        <input type="checkbox" name="title[]" id="" value="<%= title %>" >
+                        <label for=""><%= title %></label><br>
+                    <%  }) %>
+            </div>
+            <div class="col">
+                <p class="fw-bold bg-dark text-light p-2">Gender</p>
+                <input type="checkbox" name="gender[]" id="" value="M">
+                <label for="">Male</label><br>
+                <input type="checkbox" name="gender[]" id="" value="F">
+                <label for="">Female</label>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col">
+                <p class="fw-bold bg-dark text-light p-2">Contract</p>
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-light">from</span>
+                    <input class="form-control  fs-small" type="date" name="from_date" id="" placeholder="from date" >
+                    <span class="input-group-text bg-dark text-light">to</span>
+                    <input class="form-control  fs-small" type="date" name="to_date" id="" placeholder="to_date" >
+                </div>
+                
+            </div>
+            <div class="col">
+                <p class="fw-bold bg-dark text-light p-2">Salary</p>
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-light">min</span>
+                    <input class="form-control  fs-small" type="number" name="min_value" id="" placeholder="min value" >
+                    <span class="input-group-text bg-dark text-light">max</span>
+                    <input class="form-control  fs-small" type="number" name="max_value" id="" placeholder="max value" >
+                </div>
+                
+            </div>
+            <div class="col-1 ps-0 ">
+                <button class="btn btn-danger" type="submit">DELETE</button>
+                <br> <br>
+                <a href="/employeeinfo" class="btn  btn-dark" type="button">BACK</a>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

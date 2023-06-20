@@ -1,0 +1,72 @@
+</section>
+
+
+    
+
+
+<footer>
+    <div class="footer-padding ">
+        <p class="footer-text">&copy; Copyrights 2023 Grasath</p>
+    </div>
+</footer>
+<!-- bootstrap scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    const option1 = ['Engineer','Senior Engineer','Assistant Engineer','Technique Leader','Manager'];
+    const option2 = ['Staff','Senior Staff','Technique Leader','Manager'];
+    let options = `<option value="" disabled selected>--- Select ---</option>`;
+    
+     function giveSelection(value){
+        
+        if (value == 'Development'||value =='Production'||value =='Quality Management'||value =='Research'){
+            options = `<option value="" disabled selected>--- Select ---</option>`;
+            option1.forEach(option =>{
+                options += `<option value="${option}">${option}</option>`;
+                
+            })           
+        }
+        else if (value == 'Customer Service'||value =='Finance'||value =='Human Resources'||value =='Marketing'||value =='Sales') {
+            options = `<option value="" disabled selected>--- Select ---</option>`;
+            option2.forEach(option =>{
+
+                options += `<option value="${option}">${option}</option>`;
+            })
+        }
+        let titleOption = document.querySelector('.title-select').innerHTML = options;
+        
+        
+
+     }
+
+     function allAndOther(all,other){
+        const checkboxAll = document.getElementById(all);
+        const checkboxes = document.querySelectorAll(`input[name="${other}"]:not(#${all})`);
+
+        checkboxAll.addEventListener('change', function() {
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = checkboxAll.checked;
+            });
+         });
+
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                if (checkbox.checked) {
+                    const allChecked = Array.from(checkboxes).every(function(checkbox) {
+                        return checkbox.checked;
+                    });
+                    checkboxAll.checked = allChecked;
+                } else {
+                checkboxAll.checked = false;
+                }
+            });
+        });
+
+    }
+    allAndOther('dept-all','department[]')
+    allAndOther('title-all','title[]')
+     
+</script>
+
+</body>
+</html>

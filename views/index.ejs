@@ -1,0 +1,100 @@
+<%- include('partials/header') %>
+
+    <div class="d-flex w-100">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="current-employee-count">
+                            <h2>Total Employees</h2>
+                            <p><%= eCount %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="manager-count">
+                            <h2>Managers</h2>
+                            <p><%= mCount %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col index-form">
+                <div class="new-employee-form ">
+                    <form action="/newRecord" method="post">   
+                        <h3>New Record</h3>     
+                        <div class="first-name">
+                            <label >First Name : </label>
+                            <input  name="firstName" type="text" required>
+                        </div>
+                        <div class="last-name">
+                            <label >Last Name : </label>
+                            <input name="lastName" type="text" required>
+                        </div>
+                        <div class="gender">
+                            <label class="label" >Gender : </label>
+                                <input type="radio" name="gender" id="" value="m" required>
+                                <label for="">Male</label>
+                                <input type="radio" name="gender" id="" value="f" required>
+                                <label for="">Female</label>            
+                        </div>
+                        <div class="dob">
+                            <label for="">DOB : </label>
+                            <input type="date" name="dob" id="" required>
+                        </div>
+                        <div class="dept-name">
+                            <label for="">Dept : </label>
+                            <select name="deptName" id="dept-select" onchange="giveSelection(this.value)" required>
+                                <option value="" disabled selected>--- Select ---</option>
+                                <option value="Customer Service">Customer Service</option>
+                                <option value="Development">Development</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Human Resources">Human Resources</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Production">Production</option>
+                                <option value="Quality Management">Quality Management</option>
+                                <option value="Research">Research</option>
+                                <option value="Sales">Sales</option>
+                            </select>
+                        </div>
+                        <div class="role">
+                            <label for="">Role : </label>
+                            <select name="title" class="title-select" required>
+                                <option value="" disabled selected>--- Select ---</option>
+                                <option value="Senior Engineer">Senior Engineer</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Senior Staff">Senior Staff</option>
+                                <option value="Assistant Engineer">Assistant Engineer</option>
+                                <option value="Technique Leader">Technique Leader</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+                        <div class="salary">
+                            <label for="">Salary : </label>
+                            <input type="number" name="salary" id="" required>
+                        </div>
+                        <div class="contract-starting-date">
+                            <label for="">From Date : </label>
+                            <input type="date" name="fromDate" id="" required>
+                        </div>
+                        <div class="contract-ending-date">
+                            <label for="">To Date : </label>
+                            <input type="date" name="toDate" id="" required>
+                        </div>
+                        <div class="button">
+                            <button class="btn btn-outline-light" type="submit">ENTER</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+<%- include('partials/footer') %>

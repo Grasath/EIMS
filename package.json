@@ -1,0 +1,20 @@
+{
+  "name": "employee-information-management-system",
+  "version": "1.0.0",
+  "description": "Employee info management system project using node js and sql",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+    
+  },
+  "author": "Guru Prasath",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.1.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.3"
+  }
+}
