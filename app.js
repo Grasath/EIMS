@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const {newEmployee,allEmployees,filterEmployees,selectForUpdate,updateEmployee,deleteEmployee,minMaxSalary,deleteAllEmployees,retrive,retriveAll,recycleBinView,recycleBinDelete,recycleBinDeleteAll,count} = require('./database.js');
 const ejs = require('ejs');
 const app = express();
-const  port = process.env.port || 3000;
+const dotenv = require('dotenv')
+const  port = process.env.port;
 
 let allInfoList = [];
 
