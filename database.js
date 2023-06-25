@@ -8,13 +8,29 @@ const pool = mysql.createPool({
     user : process.env.mysql_user,
     password : process.env.mysql_password,
     database : process.env.mysql_database,
-    connectTimeout: 30000
+    connectTimeout: 30000,
 }).promise();
 
-const main = async ()=>{
-    
+const MAX_RETRIES = 3;
+let retries = 0;
+
+async function connectToDatabase() {
+  try {
+    await pool.query('SELECT 1'); // Test the connection
+    console.log('Connected to the database!');
+  } catch (error) {
+    if (retries < MAX_RETRIES) {
+      retries++;
+      console.error('Connection failed. Retrying...');
+      setTimeout(connectToDatabase, 5000); // Retry after 5 seconds
+    } else {
+      console.error('Max retries reached. Unable to connect to the database.');
+    }
+  }
 }
-main();
+
+connectToDatabase();
+
 module.exports.count = async()=>{
     const [e_count] = await pool.query(
         `SELECT 
