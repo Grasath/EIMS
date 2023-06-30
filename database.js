@@ -15,7 +15,6 @@ async function main(){
 
 main();
 
-
 const MAX_RETRIES = 3;
 let retries = 0;
 
@@ -89,7 +88,7 @@ module.exports.newEmployee = async (dob,firstName,lastName,gender,deptName,fromD
         insert into dept_emp 
         values (?,?,?,?);
     `,[empNo,deptNo,fromDate,toDate]);
-    if (title == 'Manager'){
+    if (title == 'Manager'||title == 'manager'){
         const [dept_manager] = await pool.query(`
             insert into dept_manager 
             values (?,?,?,?);
@@ -125,13 +124,13 @@ module.exports.filterEmployees = async(emp_num,dept_condition,title_condition,ge
         WHEN e.gender = 'm' THEN 'Male'
         ELSE 'Female'
     END AS gender,
-    concat(day(e.birth_date),'-',month(e.birth_date),'-',year(e.birth_date)) AS birth_date,
-    concat(day(e.hire_date),'-',month(e.hire_date),'-',year(e.hire_date)) AS hire_date,
+    date_format(e.birth_date,'%Y-%m-%d') AS birth_date,
+    date_format(e.hire_date,'%Y-%m-%d') AS hire_date,
     t.title,
     dept_name,
     CONCAT('$', ROUND(s.salary, 2)) AS salary,
-    concat(day(de.from_date),'-',month(de.from_date),'-',year(de.from_date)) as from_date,
-    concat(day(de.to_date),'-',month(de.to_date),'-',year(de.to_date)) as to_date
+    date_format(de.from_date,'%Y-%m-%d') as from_date,
+    date_format(de.to_date,'%Y-%m-%d') as to_date
 FROM
     employees e
         JOIN
@@ -267,8 +266,8 @@ module.exports.minMaxSalary = async()=>{
 }
 
 module.exports.fromToDate = async()=>{
-    const [minFromDate] = await pool.query(`select min(from_date) as fromDate from dept_emp;`);
-    const [maxToDate] = await pool.query(`select max(to_date) as toDate from dept_emp;`);
+    const [minFromDate] = await pool.query(`select min(date_format(from_date,'%Y-%m-%d')) as fromDate from dept_emp;`);
+    const [maxToDate] = await pool.query(`select max(date_format(to_date,'%Y-%m-%d')) as toDate from dept_emp;`);
 
     const date = {
         fromDate : minFromDate[0].fromDate,
