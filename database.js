@@ -1,16 +1,20 @@
-const mysql =require('mysql2');
-const dotenv = require('dotenv');
+let pool;
+async function main(){
+    const mysql = require('mysql2');
+    const dotenv = require('dotenv');
+    dotenv.config();
+    pool = mysql.createPool({
+        host: process.env.mysql_host,
+        user: process.env.mysql_user,
+        password: process.env.mysql_password,
+        database: process.env.mysql_database,
+        port : process.env.mysql_port,
+        connectTimeout: 30000
+    }).promise();
+}
 
-dotenv.config();
+main();
 
-const pool = mysql.createPool({
-    host : process.env.mysql_host,
-    user : process.env.mysql_user,
-    password : process.env.mysql_password,
-    database : process.env.mysql_database,
-    port : process.env.mysql_port,
-    connectTimeout: 30000,
-}).promise()
 
 const MAX_RETRIES = 3;
 let retries = 0;
