@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {newEmployee,allEmployees,filterEmployees,selectForUpdate,updateEmployee,deleteEmployee,minMaxSalary,deleteAllEmployees,retrive,retriveAll,recycleBinView,recycleBinDelete,recycleBinDeleteAll,count} = require('./database.js');
+const {newEmployee,allEmployees,filterEmployees,selectForUpdate,updateEmployee,deleteEmployee,minMaxSalary,deleteAllEmployees,retrive,retriveAll,recycleBinView,recycleBinDelete,recycleBinDeleteAll,count, fromToDate} = require('./database.js');
 const ejs = require('ejs');
 const app = express();
 
@@ -139,7 +139,6 @@ app.post('/updateemployee',async (req,res)=>{
 
 app.post('/updated',async(req,res)=>{
     const result = req.body;
-    console.log(result);
     await updateEmployee(
         result.emp_no,
         result.firstName,
@@ -152,7 +151,7 @@ app.post('/updated',async(req,res)=>{
         result.fromDate,
         result.toDate
     )
-    res.render('index');
+    res.redirect('/employeeinfo');
 })
 
 app.post('/delete',async(req,res)=>{
@@ -181,7 +180,7 @@ app.post('/deleteall',async(req,res)=>{
     await deleteAllEmployees(
         dept_condition,title_condition,gender_condition,min_value||salary.min,max_value||salary.max,from_date||date.fromDate,to_date||date.toDate
     )
-    res.render('index')
+    res.redirect('/employeeinfo');
 })
 
 app.get('/recycleBinView', async(req,res)=>{
@@ -212,7 +211,7 @@ app.post('/recycleBinDelete',async(req,res)=>{
 
 app.get('/recycleBinDeleteAll',async(req,res)=>{
     await recycleBinDeleteAll();
-    res.redirect('employeeinfo');
+    res.redirect('/employeeinfo');
 })
 
 app.listen(port,()=>{
