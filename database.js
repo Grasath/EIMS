@@ -8,8 +8,9 @@ const pool = mysql.createPool({
     user : process.env.mysql_user,
     password : process.env.mysql_password,
     database : process.env.mysql_database,
+    port : process.env.mysql_port,
     connectTimeout: 30000,
-}).promise();
+}).promise()
 
 const MAX_RETRIES = 3;
 let retries = 0;
